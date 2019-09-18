@@ -40,6 +40,10 @@ namespace WorldBank
             CPF         = cpf;
             Birth       = birth;
             Income      = income;
+
+            SharedMethods s = new SharedMethods();
+            Age             = s.Age(birth);
+            AgeRange        = s.AgeRange(Age);
         }
     }
 }

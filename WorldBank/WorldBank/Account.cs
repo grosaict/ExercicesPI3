@@ -23,9 +23,13 @@ namespace WorldBank
 
         public virtual void Withdrawal(double value)
         {
-            if ((CheckBalance() - value) > 0)
+            if (value > 0)
             {
-                Balance -= value;
+                double charge = value * (1 + WithdrawalFee);
+                if ((CheckBalance() - charge) > 0)
+                {
+                    Balance -= charge;
+                }
             }
         }
         public virtual double CheckBalance()                        // CHECK HOW TO FIX THIS ERROR WITH TEACHER (abstract instead of virtual)
@@ -34,10 +38,13 @@ namespace WorldBank
         }
         public virtual void Transfer(Account account, double value) // CHECK HOW TO FIX THIS ERROR WITH TEACHER (abstract instead of virtual)
         {
-            if ((CheckBalance() - value) > 0)
+            if (value > 0)
             {
-                Balance -= value;
-                account.Deposit(value);
+                if ((CheckBalance() - value) > 0)
+                {
+                    Balance -= value;
+                    account.Deposit(value);
+                }
             }
         }
         public virtual void Deposit(double value)                   // WHAT THE DIFFERENCE TO USE INTERFACE INSTEAD OF DECLARE HERE?

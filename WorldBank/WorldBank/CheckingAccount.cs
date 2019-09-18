@@ -34,9 +34,16 @@ namespace WorldBank
             AccountLimit    = accountLimit;
             LimitFee        = limitFee;
         }
-        public override double CheckBalance()
+        public override void Withdrawal(double value)
         {
-            return Balance + AccountLimit;
+            if (value > 0)
+            {
+                double charge = value * (1 + WithdrawalFee);
+                if (((CheckBalance() + AccountLimit) - charge) > 0)
+                {
+                    Balance -= charge;
+                }
+            }
         }
     }
 }
